@@ -72,8 +72,8 @@ def program():
 	fv = 1
 	#n = int(input("Please enter the number of verses you would like: "))
 	#fv = int(input("Please enter '1' for freeverse or '0' for random chance of back-to-back lines: "))
-	print("~~~#JustAtrusThings~~~\n")
+	print("---#JustAtrusThings---\n")
 	getverses(n, fv)
-	print("\n-Atrus\n------------------")
+	print("\n-Atrus\n\n----------------------")
 
 program()
