@@ -4,7 +4,7 @@ import re
 import random
 from random import randint
 
-f = open('output.txt','w')
+f_output = open('output.txt','w')
 f_feed = open('atrus.txt','r')
 r_feed = f_feed.read()
 
@@ -15,7 +15,7 @@ lastcap = 1
 lastRandomNum = 0
 
 def writeAndPrint(line):
-	f.write(line + "\n")
+	f_output.write(line + "\n")
 	print(line)
 
 def createSentence(freeverse):
@@ -50,7 +50,7 @@ def setLastCapGlobal(verse):
 	else:
 		lastcap = 0
 
-def getverses(numverses, freeverse):
+def getVerses(numverses, freeverse):
 	lastRandomNum = 0
 	for _ in range(0, numverses+1):
 		s = createSentence(freeverse)
@@ -78,10 +78,9 @@ def program():
 	fv = 1
 	#n = int(input("Please enter the number of verses you would like: "))
 	#fv = int(input("Please enter '1' for freeverse or '0' for random chance of back-to-back lines: "))
-	writeAndPrint("---#JustAtrusThings---\n")
-	getverses(n, fv)
-	writeAndPrint("\n-Atrus\n\n----------------------")
-	f.close()
+	getVerses(n, fv)
+	writeAndPrint("\n#PoemsFromAtrus\n")
+	f_output.close()
 	
 	
 
