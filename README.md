@@ -5,5 +5,5 @@ This is a project I started to help with learning Python since I'm a C++ gal.
 
 ## Instructions
 1. Run "python atrus.py" via the command line. (Make sure you have Python installed!)
-2. A poem is spit out in the console and into the MomentsWithAtrus.txt file.
+2. A poem is spit out in the console and into the output.txt file.
 3. That is all!
