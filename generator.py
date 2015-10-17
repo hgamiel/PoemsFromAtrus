@@ -10,21 +10,25 @@ r_feed = f_feed.read()
 
 punc = ["?", "--", ".", ",", "!", " ", ";", ".", " "]
 sentences = list(re.split(r' *[\.\?!][\'"\)\]]* *', r_feed))
+names = ["catherine", "atrus", "achenar", "sirrus"]
 
-lastcap = 1
-lastRandomNum = 0
+lc = 1 #last cap bool
+lastIndex = 0 #last sentence index
 
 def writeAndPrint(line):
 	f_output.write(line + "\n")
 	print(line)
 
 def createSentence(freeverse):
+	global lastIndex
 	s = []
-	global lastRandomNum
+	newIndex = randint(0, len(sentences)-1)
+
 	if(freeverse):
-		newRandomNum = randint(0, len(sentences)-1)
-		lastRandomNum = newRandomNum if (newRandomNum != lastRandomNum) or (newRandomNum + 1 == lastRandomNum) or (newRandomNum - 1 == lastRandomNum) else randint(0, len(sentences)-1)
-		s = list(sentences[lastRandomNum].split(' '))
+		while((newIndex == lastIndex) or (newIndex + 1 == lastIndex) or (newIndex - 1 == lastIndex)):
+			newIndex = randint(0, len(sentences)-1)
+		lastIndex = newIndex
+		s = list(sentences[lastIndex].split(' '))
 	else:
 		s = list(random.choice(sentences).split(' '))
 	p = random.choice(punc)
@@ -33,25 +37,29 @@ def createSentence(freeverse):
 	return s
 
 def modifyFirstChar(verse):
-	firstChar = '';
-	fw = verse[0].lower()
-	fl = fw[0]
-	if (lastcap == 1 or (fl == "i" and len(fw) == 1) or fw == "catherine" or fw == "atrus" or fw == "achenar" or fw == "sirrus"):
-		firstChar = ''.join(verse[0][0].upper() + verse[0][1:len(verse[0])])
+	ffw = ''; #final first word
+	ofw = verse[0] #original first word of verse
+	ofl = ofw[0] #original first letter of verse
+	iofw =  ofw[1:len(verse[0])] #original first word minus first letter
+
+	if (lc == 1 or (ofl == "i" and len(ofw) == 1) or ofw.lower() in names):
+		ffw = ''.join(ofl.upper() + iofw)
 	else:
-		firstChar = ''.join(verse[0][0].lower() + verse[0][1:len(verse[0])])
-	return firstChar
+		ffw = ''.join(ofl.lower() + iofw)
+	return ffw
 
 def setLastCapGlobal(verse):
+	global lc
 	lastchar = verse[len(verse)-1][-1::]
-	global lastcap
+
 	if (lastchar == '?' or lastchar == '.' or lastchar == '!' or lastchar == ":" or lastchar == ";"):
-		lastcap = 1
+		lc = 1
 	else:
-		lastcap = 0
+		lc = 0
 
 def getVerses(numverses, freeverse):
 	lastRandomNum = 0
+
 	for _ in range(0, numverses+1):
 		s = createSentence(freeverse)
 		if (len(s) > 2):
