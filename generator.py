@@ -68,6 +68,7 @@ def modifyFirstChar(verse):
 	return ffw
 
 def setLastCapGlobal(verse):
+	global lc
 	lastchar = verse[len(verse)-1][-1::]
 
 	if (lastchar in puncRequireCap):
