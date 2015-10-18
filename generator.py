@@ -28,12 +28,12 @@ clim = 140 - len(sig) #twitter character limit
 uclim = 1 #whether or not to character limit
 
 def addToOutput(segment):
-	f_output.write(segment + "\n")
 	oBuffer.append(segment)
 
 def prepareOutput():
 	global oString
 	oString = "\"" + "\n".join(oBuffer) + "\"" + "\n" + sig
+	f_output.write(oString)
 
 def printOutput():
 	print(oString)
