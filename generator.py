@@ -27,8 +27,12 @@ lastIndex = 0 #last sentence index
 clim = 140 - len(sig) #twitter character limit
 uclim = 1 #whether or not to character limit
 
+rccnt = 0 #running character count
+
 def addToOutput(segment):
+	global rccnt
 	oBuffer.append(segment)
+	rccnt += len(segment)
 
 def prepareOutput():
 	global oString
@@ -89,25 +93,33 @@ def createVerseFromSentence(sentence):
 	return verse
 
 def getVerses():
+	global rccnt
 	lastRandomNum = 0
 
 	for _ in range(0, n+1):
 		s = getSentence(minwps)
 		verse = createVerseFromSentence(s)
-		if(len(verse) > maxwpl):
-			tempstr = ''
-			low = 0
-			top = randint(minwpl, maxwpl)
-			while(low < len(verse)):
+		ccount = (rccnt + len(sig) + 2 + len(' '.join(verse)))
+		if(not uclim or (uclim and ccount < clim)):
+			if(len(verse) > maxwpl):
 				tempstr = ''
-				for i in range(low, top):
-					tempstr += verse[i] + ' '
-				low = top
-				newrand = randint(minwpl, maxwpl)
-				top = top + newrand if (top + newrand < len(verse)) else len(verse)
-				addToOutput(tempstr.strip(' '))
-		else:
-			addToOutput(' '.join(verse).strip())
+				low = 0
+				top = randint(minwpl, maxwpl)
+				while(low < len(verse)):
+					tempstr = ''
+					for i in range(low, top):
+						tempstr += verse[i] + ' '
+					low = top
+					newrand = randint(minwpl, maxwpl)
+					top = top + newrand if (top + newrand < len(verse)) else len(verse)
+					addToOutput(tempstr.strip(' '))
+			else:
+				addToOutput(' '.join(verse).strip())
+		elif(uclim and len(oBuffer) == 0):
+			rccnt = 0
+		elif(uclim):
+			print("Breaking: Character count = " + str((ccount) - len(' '.join(verse))) + "\n")
+			break
 
 def closeFileIO():
 	f_output.close()
