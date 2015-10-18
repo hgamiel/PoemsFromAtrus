@@ -118,7 +118,8 @@ def getVerses():
 		elif(uclim and len(oBuffer) == 0):
 			rccnt = 0
 		elif(uclim):
-			print("Breaking: Character count = " + str((ccount) - len(' '.join(verse))) + "\n")
+			ccount = len("\"" + "\n".join(oBuffer) + "\"" + "\n" + sig)
+			print("Breaking: Character count = " + str(ccount) + "\n")
 			break
 
 def closeFileIO():
