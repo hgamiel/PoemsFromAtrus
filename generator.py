@@ -10,14 +10,14 @@ from random import randint
 u_output = "output.txt" # file used for the output
 u_input = "atrus.txt" # file used for the input (the list of sentences)
 sig = "\n#PoemsFromAtrus" #  signature put at the end of the tweet
-n = 5 # num sentences
+n = 5 # max num sentences
 rm = 1 # random modifier
 minwps = 3 # minimum words per sentence
-minwpl = 5 # minimum words per line
-maxwpl = 8 # maximum words per line
+minwpl = 5 # minimum words per line with >= 8 words
+maxwpl = 8 # maximum words per line with >= 8 words
 lc = 1 # last cap bool
 li = 0 # last sentence index
-clim = 140 - len(sig) # tweet character limit
+clim = 140 # tweet character limit
 uclim = 1 # whether or not to character limit
 
 #  -- END MODIFIABLE VARIABLES --
@@ -33,6 +33,7 @@ pNouns = ["catherine", "atrus", "achenar", "sirrus", "d'ni", "i"] # list of name
 
 oBuffer = [] # output buffer
 oString = "" # final output string
+fclim = clim - len(sig) - 2 # tweet character limit considering the signature and two quotation marks
 fcnt = 0 # final character count
 rccnt = 0 # running character count
 
@@ -108,7 +109,7 @@ def getVerses():
 		v = createVerseFromSentence(s)
 		ml = math.ceil(len(v) / minwpl) if (len(v) > minwpl) else 1 # get max num of lines possible
 		checkmax = (rccnt + 2 + len(' '.join(v).strip(' ')) + ml + len(oBuffer)) # check the current max (+ possible upper limit) num of characters at the moment
-		if(not uclim or (uclim and checkmax < clim)):
+		if(not uclim or (uclim and checkmax < fclim)):
 			if(len(v) > maxwpl):
 				tempstr = ''
 				low = 0
