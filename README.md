@@ -10,7 +10,7 @@ This is a side project I started to help with learning Python since I'm a C++ ga
 4. That is all!
 
 ## Want to Contribute?
-This is my first Python project and I would love to include contributions that would improve it! Please fork this project and create a pull request to appropriate branch based on what you are editing.
+This is my first Python project and I would love to include contributions that would improve it! Please fork this project and create a pull request to the appropriate branch based on what you are editing.
 
 ### Branches
 - **Master:** Main branch. Please do not commit to this branch. Commit to the appropriate alternate branch and perform a pull request.
