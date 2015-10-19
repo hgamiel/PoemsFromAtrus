@@ -4,9 +4,21 @@ import re
 import random
 import math
 from random import randint
+from TwitterAPI import TwitterAPI
+
+# -- BEGIN TWITTER CREDS --
+
+api = ''
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+ACCESS_TOKEN_KEY = ''
+ACCESS_TOKEN_SECRET = ''
+
+# -- END TWITTER CREDS
 
 # -- BEGIN MODIFIABLE VARIABLES --
 
+t_input = "creds.txt"
 u_output = "output.txt" # file used for the output
 u_input = "atrus.txt" # file used for the input (the list of sentences)
 sig = "\n#PoemsFromAtrus" #  signature put at the end of the tweet
@@ -24,7 +36,9 @@ uclim = 1 # whether or not to character limit
 
 f_output = open(u_output,'w') # output file
 f_feed = open(u_input,'r') # input file
+f_api_feed = open(t_input, 'r') # twitter creds file
 r_feed = f_feed.read() # read contents of input file
+r_api_feed = f_api_feed.read() # read contents of twitter creds file
 
 punc = ["?", "--", ".", ",", "!", " ", ";", ".", " ", "..."] # list of puncation
 puncRequireCap = ["?", ".", "!", ":", ";"] # list of punctuation that requires capitalized letter after
@@ -36,6 +50,31 @@ oString = "" # final output string
 fclim = clim - len(sig) - 2 # tweet character limit considering the signature and two quotation marks
 fcnt = 0 # final character count
 rccnt = 0 # running character count
+
+def setupTwitterAPI():
+	getCreds()
+	connectAPI()
+
+def getCreds():
+	global CONSUMER_KEY
+	global CONSUMER_SECRET
+	global ACCESS_TOKEN_KEY
+	global ACCESS_TOKEN_SECRET
+
+	creds = list(r_api_feed.split('\n'))
+
+	CONSUMER_KEY = str(creds[0])
+	CONSUMER_SECRET = str(creds[1])
+	ACCESS_TOKEN_KEY = str(creds[2])
+	ACCESS_TOKEN_SECRET = str(creds[3])
+
+
+def connectAPI():
+	global api
+	try:
+		api = TwitterAPI(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
+	except:
+		print("Unable to connect to TwitterAPI.\n")
 
 def addToOutput(segment):
 	global rccnt
@@ -131,14 +170,22 @@ def getVerses():
 			print("Breaking: Character count = " + str(fcnt) + "\n")
 			break
 
+def tweet():
+	print("\nTweeting...")
+	r = api.request('statuses/update', {'status': oString})
+	print('Tweet successful!' if r.status_code == 200 else 'Tweet unsuccessful.')
+
 def closeFileIO():
 	f_output.close()
 	f_feed.close()
+	f_api_feed.close()
 
 def program():
+	setupTwitterAPI()
 	getVerses()
 	prepareOutput()
 	printOutput()
+	tweet()
 	closeFileIO()
 
 program()
