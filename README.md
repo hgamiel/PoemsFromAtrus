@@ -9,7 +9,10 @@ This is a side project I started to help with learning Python since I'm a C++ ga
 3. If you have Twitter API information, store it in a text file called "creds.txt" in the same directory as the script. The poem generated will be automatically tweeted. Store the information in the following order, each separated by a single newline: `CONSUMER_KEY`, `CONSUMER_SECRET`, `ACCESS_TOKEN_KEY`, `ACCESS_TOKEN_SECRET`.
 4. That is all!
 
-## Branches
+## Want to Contribute?
+This is my first Python project and I would love to include contributions that would improve it! Please fork this project and create a pull request to appropriate branch based on what you are editing.
+
+### Branches
 - **Master:** Main branch. Please do not commit to this branch. Commit to the appropriate alternate branch and perform a pull request.
 - **Generator:** Any edits to generator.py should be done in this branch.
 - **Text:** Any edits to the output or input files should be done in this branch.
