@@ -1,5 +1,5 @@
 #	"Poems From Atrus" (#PoemsFromAtrus, @PoemsFromAtrus, https://github.com/hgamiel/PoemsFromAtrus)
-#	By Hannah Gamiel (@repolevedemag, @hannahgamiel, hannahgamiel.com, https://github.com/hgamiel)
+#	By Hannah Gamiel (@hannahgamiel, hannahgamiel.com, https://github.com/hgamiel)
 # 	Uses TwitterAPI for Python (https://github.com/geduldig/TwitterAPI)
 #	10/18/2015
 
