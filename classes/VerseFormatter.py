@@ -8,7 +8,7 @@ import random
 
 class VerseFormatter:
 	_sig = ''
-	_clim = 140
+	_clim = 280
 	_minwps = 3 # minimum words per sentence
 	_minwpl = 5 # minimum words per line with >= 8 words
 	_maxwpl = 8 # maximum words per line with >= 8 words
